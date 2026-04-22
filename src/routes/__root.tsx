@@ -1,5 +1,6 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 
+import { SiteShell } from "@/components/site/SiteShell";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -29,11 +30,11 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Dr Kgoete Medical Practice & Optometry" },
+      { name: "description", content: "Medical practice and optometry services for patients in Mabopane." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Dr Kgoete Medical Practice & Optometry" },
+      { property: "og:description", content: "Medical practice and optometry services for patients in Mabopane." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
@@ -65,5 +66,9 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  return <Outlet />;
+  return (
+    <SiteShell>
+      <Outlet />
+    </SiteShell>
+  );
 }
