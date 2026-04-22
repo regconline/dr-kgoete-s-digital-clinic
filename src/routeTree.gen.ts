@@ -10,8 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as OptometryRouteImport } from './routes/optometry'
+import { Route as OptometristLimpopoRouteImport } from './routes/optometrist-limpopo'
 import { Route as MedicalPracticeRouteImport } from './routes/medical-practice'
+import { Route as GpGlencowieRouteImport } from './routes/gp-glencowie'
+import { Route as DoctorJaneFurseRouteImport } from './routes/doctor-jane-furse'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -20,14 +24,34 @@ const OptometryRoute = OptometryRouteImport.update({
   path: '/optometry',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OptometristLimpopoRoute = OptometristLimpopoRouteImport.update({
+  id: '/optometrist-limpopo',
+  path: '/optometrist-limpopo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MedicalPracticeRoute = MedicalPracticeRouteImport.update({
   id: '/medical-practice',
   path: '/medical-practice',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GpGlencowieRoute = GpGlencowieRouteImport.update({
+  id: '/gp-glencowie',
+  path: '/gp-glencowie',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoctorJaneFurseRoute = DoctorJaneFurseRouteImport.update({
+  id: '/doctor-jane-furse',
+  path: '/doctor-jane-furse',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -44,44 +68,82 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
+  '/doctor-jane-furse': typeof DoctorJaneFurseRoute
+  '/gp-glencowie': typeof GpGlencowieRoute
   '/medical-practice': typeof MedicalPracticeRoute
+  '/optometrist-limpopo': typeof OptometristLimpopoRoute
   '/optometry': typeof OptometryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
+  '/doctor-jane-furse': typeof DoctorJaneFurseRoute
+  '/gp-glencowie': typeof GpGlencowieRoute
   '/medical-practice': typeof MedicalPracticeRoute
+  '/optometrist-limpopo': typeof OptometristLimpopoRoute
   '/optometry': typeof OptometryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
+  '/doctor-jane-furse': typeof DoctorJaneFurseRoute
+  '/gp-glencowie': typeof GpGlencowieRoute
   '/medical-practice': typeof MedicalPracticeRoute
+  '/optometrist-limpopo': typeof OptometristLimpopoRoute
   '/optometry': typeof OptometryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/medical-practice' | '/optometry'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/contact'
+    | '/doctor-jane-furse'
+    | '/gp-glencowie'
+    | '/medical-practice'
+    | '/optometrist-limpopo'
+    | '/optometry'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/medical-practice' | '/optometry'
+  to:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/contact'
+    | '/doctor-jane-furse'
+    | '/gp-glencowie'
+    | '/medical-practice'
+    | '/optometrist-limpopo'
+    | '/optometry'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/blog'
     | '/contact'
+    | '/doctor-jane-furse'
+    | '/gp-glencowie'
     | '/medical-practice'
+    | '/optometrist-limpopo'
     | '/optometry'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BlogRoute: typeof BlogRoute
   ContactRoute: typeof ContactRoute
+  DoctorJaneFurseRoute: typeof DoctorJaneFurseRoute
+  GpGlencowieRoute: typeof GpGlencowieRoute
   MedicalPracticeRoute: typeof MedicalPracticeRoute
+  OptometristLimpopoRoute: typeof OptometristLimpopoRoute
   OptometryRoute: typeof OptometryRoute
 }
 
@@ -94,6 +156,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OptometryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/optometrist-limpopo': {
+      id: '/optometrist-limpopo'
+      path: '/optometrist-limpopo'
+      fullPath: '/optometrist-limpopo'
+      preLoaderRoute: typeof OptometristLimpopoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/medical-practice': {
       id: '/medical-practice'
       path: '/medical-practice'
@@ -101,11 +170,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MedicalPracticeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gp-glencowie': {
+      id: '/gp-glencowie'
+      path: '/gp-glencowie'
+      fullPath: '/gp-glencowie'
+      preLoaderRoute: typeof GpGlencowieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doctor-jane-furse': {
+      id: '/doctor-jane-furse'
+      path: '/doctor-jane-furse'
+      fullPath: '/doctor-jane-furse'
+      preLoaderRoute: typeof DoctorJaneFurseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -128,10 +218,23 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BlogRoute: BlogRoute,
   ContactRoute: ContactRoute,
+  DoctorJaneFurseRoute: DoctorJaneFurseRoute,
+  GpGlencowieRoute: GpGlencowieRoute,
   MedicalPracticeRoute: MedicalPracticeRoute,
+  OptometristLimpopoRoute: OptometristLimpopoRoute,
   OptometryRoute: OptometryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
