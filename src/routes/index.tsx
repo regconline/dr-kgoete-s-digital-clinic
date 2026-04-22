@@ -1,26 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { HomePage } from "@/components/site/ClinicPages";
+
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Dr Kgoete Medical Practice & Optometry" },
+      { name: "description", content: "Dr Kabelo Kgoete Medical Practice & Optometry in Mabopane provides primary healthcare, chronic care, eye exams, lenses, and patient support." },
+      { property: "og:title", content: "Dr Kgoete Medical Practice & Optometry" },
+      { property: "og:description", content: "Primary healthcare and optometry services in Mabopane." },
+    ],
+  }),
+  component: HomePage,
 });
-
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
-}
