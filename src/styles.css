@@ -59,21 +59,21 @@
 
 :root {
   --radius: 0.5rem;
-  --font-clinic: "Aptos", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Bahnschrift", "Aptos Display", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
-  --background: oklch(0.989 0.004 220);
-  --foreground: oklch(0.176 0.042 263);
+  --font-clinic: "DM Sans", "Aptos", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", "Playfair Display", "Bahnschrift", serif;
+  --background: oklch(0.988 0.004 230);
+  --foreground: oklch(0.18 0.055 265);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.176 0.042 263);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.176 0.042 263);
-  --primary: oklch(0.222 0.078 265);
+  --primary: oklch(0.262 0.11 267);
   --primary-foreground: oklch(0.991 0.004 220);
   --secondary: oklch(0.947 0.016 225);
   --secondary-foreground: oklch(0.222 0.078 265);
   --muted: oklch(0.953 0.012 220);
   --muted-foreground: oklch(0.454 0.036 255);
-  --accent: oklch(0.61 0.227 25);
+  --accent: oklch(0.61 0.235 25);
   --accent-foreground: oklch(0.991 0.004 220);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
@@ -93,14 +93,16 @@
   --sidebar-accent-foreground: oklch(0.222 0.078 265);
   --sidebar-border: oklch(0.894 0.017 230);
   --sidebar-ring: oklch(0.61 0.227 25);
-  --clinic-navy: oklch(0.222 0.078 265);
-  --clinic-red: oklch(0.61 0.227 25);
+  --clinic-navy: oklch(0.262 0.11 267);
+  --clinic-red: oklch(0.61 0.235 25);
+  --clinic-navy-soft: oklch(0.36 0.105 267);
+  --clinic-red-deep: oklch(0.48 0.21 25);
   --clinic-ice: oklch(0.973 0.018 210);
   --clinic-line: oklch(0.9 0.018 230);
   --success: oklch(0.62 0.15 150);
   --success-foreground: oklch(0.991 0.004 220);
-  --gradient-hero: radial-gradient(circle at 78% 20%, color-mix(in oklab, var(--clinic-red) 13%, transparent), transparent 28%), linear-gradient(135deg, var(--background) 0%, var(--clinic-ice) 54%, color-mix(in oklab, var(--clinic-navy) 9%, var(--background)) 100%);
-  --gradient-band: linear-gradient(135deg, var(--clinic-navy), oklch(0.29 0.093 257));
+  --gradient-hero: linear-gradient(135deg, oklch(0.18 0.07 267) 0%, var(--clinic-navy) 42%, var(--clinic-red) 100%);
+  --gradient-band: linear-gradient(135deg, var(--clinic-navy), var(--clinic-navy-soft) 54%, var(--clinic-red-deep));
   --shadow-soft: 0 18px 55px -38px color-mix(in oklab, var(--clinic-navy) 38%, transparent);
   --shadow-raised: 0 28px 80px -44px color-mix(in oklab, var(--clinic-navy) 45%, transparent);
 }
@@ -167,6 +169,7 @@
   h3 {
     font-family: var(--font-display);
     letter-spacing: 0;
+    line-height: 1.65;
   }
 
   ::selection {
@@ -206,6 +209,59 @@
   .section-band {
     background: var(--gradient-band);
   }
+
+  .premium-hero {
+    background-size: 140% 140%;
+    animation: premium-drift 18s ease-in-out infinite alternate;
+  }
+
+  .glass-panel {
+    background: color-mix(in oklab, var(--primary-foreground) 8%, transparent);
+    backdrop-filter: blur(24px);
+    box-shadow: 0 8px 32px color-mix(in oklab, var(--foreground) 25%, transparent);
+  }
+
+  .premium-button {
+    position: relative;
+    overflow: hidden;
+    transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+  }
+
+  .premium-button:hover {
+    transform: translateY(-2px);
+  }
+
+  .premium-button::after {
+    content: "";
+    position: absolute;
+    inset: 50%;
+    width: 0;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--primary-foreground) 24%, transparent);
+    transform: translate(-50%, -50%);
+    transition: width 420ms ease;
+  }
+
+  .premium-button:hover::after {
+    width: 240px;
+  }
+
+  .typing-dots::after {
+    content: "";
+    animation: typing-dots 1.2s steps(4, end) infinite;
+  }
+
+  .prose-content {
+    color: var(--muted-foreground);
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  .prose-content p + p {
+    margin-top: 1rem;
+  }
+
 }
 
 @keyframes pulse-drift {
@@ -225,4 +281,17 @@
   .pulse-line {
     animation: none;
   }
+}
+
+
+@keyframes premium-drift {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+@keyframes typing-dots {
+  0% { content: ""; }
+  25% { content: "."; }
+  50% { content: ".."; }
+  75%, 100% { content: "..."; }
 }
