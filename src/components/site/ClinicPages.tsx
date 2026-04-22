@@ -85,18 +85,14 @@ export function HomePage() {
               <Link to="/medical-practice" className="inline-flex h-13 items-center justify-center rounded-full border border-primary-foreground/30 bg-primary-foreground/10 px-7 text-sm font-bold text-primary-foreground backdrop-blur-lg transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Explore services</Link>
             </div>
           </motion.div>
-          <motion.div className="relative z-10 mx-auto w-full max-w-md" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.75, delay: 0.15 }}>
-            <div className="glass-panel rounded-2xl border border-primary-foreground/18 p-6">
-              <img src={logo} alt="Dr Kabelo Kgoete Medical Practice and Optometry logo" className="mx-auto aspect-square w-full max-w-sm object-contain" decoding="async" />
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                {trustSignals.slice(0, 4).map(([title, detail]) => (
-                  <div key={title} className="rounded-2xl border border-primary-foreground/14 bg-primary-foreground/10 p-4">
-                    <p className="text-sm font-bold text-primary-foreground">{title}</p>
-                    <p className="mt-1 text-xs leading-5 text-primary-foreground/70">{detail}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <motion.div className="relative z-10 mx-auto grid w-full max-w-md gap-4" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.75, delay: 0.15 }}>
+            {trustSignals.slice(0, 4).map(([title, detail], index) => (
+              <motion.div key={title} className={`glass-panel rounded-2xl border border-primary-foreground/18 p-5 ${index % 2 ? "ml-8" : "mr-8"}`} animate={{ y: [0, -8, 0] }} transition={{ duration: 4 + index, repeat: Infinity, ease: "easeInOut" }}>
+                <p className="text-xs font-bold uppercase text-primary-foreground/70">0{index + 1}</p>
+                <p className="mt-2 font-display text-2xl font-black text-primary-foreground">{title}</p>
+                <p className="mt-1 text-sm leading-6 text-primary-foreground/72">{detail}</p>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -139,11 +135,11 @@ export function MedicalPracticePage() {
 
   return (
     <StandardPage eyebrow="Medical Practice" title="Everyday healthcare with disciplined clinical follow-through." intro="Filter services by need, review what to expect, and move quickly from concern to booking.">
-      <div className="mb-7 flex flex-wrap gap-2">
+      <motion.div {...fadeUp} className="mb-7 flex flex-wrap gap-2">
         {serviceCategories.map((item) => (
           <button key={item} onClick={() => setCategory(item)} className={`rounded-full border px-4 py-2 text-sm font-bold transition-all ${category === item ? "border-accent bg-accent text-accent-foreground" : "border-border bg-card text-foreground hover:bg-secondary"}`}>{item}</button>
         ))}
-      </div>
+      </motion.div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((service, index) => (
           <RevealCard key={service.title} title={service.title} eyebrow={service.category} text={service.detail} delay={index * 0.04} onClick={() => setSelected(service)} />
@@ -396,7 +392,7 @@ function BookingInput({ label, value, onChange }: { label: string; value: string
 
 function StandardPage({ eyebrow, title, intro, children }: { eyebrow: string; title: string; intro: string; children: React.ReactNode }) {
   return (
-    <section className="bg-background py-16 md:py-24">
+    <motion.section {...fadeUp} className="bg-background py-16 md:py-24">
       <div className="clinic-container">
         <div className="mb-10 max-w-4xl">
           <p className="mb-4 text-sm font-bold uppercase text-clinic-red">{eyebrow}</p>
@@ -405,7 +401,7 @@ function StandardPage({ eyebrow, title, intro, children }: { eyebrow: string; ti
         </div>
         {children}
       </div>
-    </section>
+    </motion.section>
   );
 }
 
