@@ -169,7 +169,7 @@
   h3 {
     font-family: var(--font-display);
     letter-spacing: 0;
-    line-height: 1.65;
+    line-height: 1.05;
   }
 
   ::selection {
@@ -219,6 +219,18 @@
     background: color-mix(in oklab, var(--primary-foreground) 8%, transparent);
     backdrop-filter: blur(24px);
     box-shadow: 0 8px 32px color-mix(in oklab, var(--foreground) 25%, transparent);
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 
   .premium-button {
