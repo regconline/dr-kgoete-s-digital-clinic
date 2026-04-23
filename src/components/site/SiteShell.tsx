@@ -24,7 +24,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         <div className="clinic-container flex min-h-20 items-center justify-between gap-3 py-3">
           <Link to="/" className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" onClick={() => setOpen(false)}>
             <img src={logo} alt="Dr Kabelo Kgoete Medical Practice & Optometry logo" className="h-16 w-16 rounded-sm object-contain" decoding="async" />
-            <span className="hidden leading-tight sm:block">
+            <span className="leading-tight">
               <span className="block font-display text-sm font-bold uppercase text-clinic-navy">Dr Kabelo Kgoete</span>
               <span className="block text-xs font-medium text-muted-foreground">Medical Practice & Optometry</span>
             </span>

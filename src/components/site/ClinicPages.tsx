@@ -164,20 +164,38 @@ export function AboutPage() {
 
 export function MedicalServicesPage() {
   return (
-    <StandardPage eyebrow="Medical Services" title="Doctor in Glen Cowie for everyday healthcare and ongoing care needs." intro="Medical services are described clearly so patients can identify the right appointment type and book via WhatsApp or phone.">
-      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-        <motion.div {...fadeUp} className="clinical-card rounded-2xl border border-border p-6">
-          <MedicalHeartbeatDiagram />
-          <div className="mt-6 rounded-2xl bg-secondary p-5">
-            <p className="text-sm font-bold uppercase text-clinic-red">Clinical care</p>
-            <p className="mt-2 font-display text-2xl font-black text-clinic-navy">Clear assessment before treatment decisions.</p>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">Appointments focus on understanding symptoms, risks, history, and the most appropriate next step.</p>
+    <motion.section {...fadeUp} className="bg-background py-10 lg:py-14">
+      <div className="clinic-container">
+        <div className="mb-6 grid gap-5 lg:grid-cols-[1fr_1fr] lg:items-end">
+          <div>
+            <p className="mb-3 text-sm font-bold uppercase text-clinic-red">Medical Services</p>
+            <h1 className="text-4xl font-black leading-tight text-clinic-navy lg:text-5xl">Doctor in Glen Cowie for everyday healthcare and ongoing care needs.</h1>
           </div>
-        </motion.div>
-        <ServiceGrid services={medicalServices} field="Medical care" compact />
+          <div className="flex flex-col justify-end gap-4">
+            <p className="text-base leading-7 text-muted-foreground">Medical services are described clearly so patients can identify the right appointment type and book via WhatsApp or phone.</p>
+            <div>
+              <a href={whatsappUrl("medical appointment")} className="premium-button inline-flex h-11 items-center justify-center rounded-full bg-accent px-6 text-sm font-bold text-accent-foreground shadow-soft">Book a medical appointment</a>
+            </div>
+          </div>
+        </div>
+        <PulseDivider />
+        <div className="grid gap-5 lg:grid-cols-[280px_1fr] lg:items-start">
+          <motion.div {...fadeUp} className="clinical-card rounded-2xl border border-border p-5 lg:sticky lg:top-24">
+            <MedicalHeartbeatDiagram />
+            <div className="mt-4 rounded-2xl bg-secondary p-4">
+              <p className="text-xs font-bold uppercase text-clinic-red">Clinical care</p>
+              <p className="mt-1 font-display text-xl font-black text-clinic-navy">Clear assessment before treatment decisions.</p>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">Appointments focus on understanding symptoms, risks, history, and the most appropriate next step.</p>
+            </div>
+          </motion.div>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {medicalServices.map((service, index) => (
+              <CompactServiceCard key={service.title} icon={service.icon} title={service.title} category={service.category} detail={service.detail} delay={index * 0.03} />
+            ))}
+          </div>
+        </div>
       </div>
-      <BookingBand cta="Book a medical appointment" service="medical appointment" />
-    </StandardPage>
+    </motion.section>
   );
 }
 
@@ -185,20 +203,38 @@ export const MedicalPracticePage = MedicalServicesPage;
 
 export function OptometryPage() {
   return (
-    <StandardPage eyebrow="Optometry" title="Optometrist Glen Cowie for eye tests, glasses, and vision support." intro="Eye-care services focus on clear explanations, comfortable vision, and appropriate referral guidance where further care may be needed.">
-      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-        <motion.div {...fadeUp} className="clinical-card rounded-2xl border border-border p-6">
-          <EyeDiagram />
-          <div className="mt-6 rounded-2xl bg-secondary p-5">
-            <p className="text-sm font-bold uppercase text-clinic-red">Did you know?</p>
-            <p className="mt-2 font-display text-2xl font-black text-clinic-navy">Vision changes can be gradual.</p>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">Regular eye checks can help identify prescription changes, eye strain, and possible referral needs.</p>
+    <motion.section {...fadeUp} className="bg-background py-10 lg:py-14">
+      <div className="clinic-container">
+        <div className="mb-6 grid gap-5 lg:grid-cols-[1fr_1fr] lg:items-end">
+          <div>
+            <p className="mb-3 text-sm font-bold uppercase text-clinic-red">Optometry</p>
+            <h1 className="text-4xl font-black leading-tight text-clinic-navy lg:text-5xl">Optometrist Glen Cowie for eye tests, glasses, and vision support.</h1>
           </div>
-        </motion.div>
-        <ServiceGrid services={optometryServices} field="Eye care" compact />
+          <div className="flex flex-col justify-end gap-4">
+            <p className="text-base leading-7 text-muted-foreground">Eye-care services focus on clear explanations, comfortable vision, and appropriate referral guidance where further care may be needed.</p>
+            <div>
+              <a href={whatsappUrl("eye test")} className="premium-button inline-flex h-11 items-center justify-center rounded-full bg-accent px-6 text-sm font-bold text-accent-foreground shadow-soft">Book an eye test</a>
+            </div>
+          </div>
+        </div>
+        <PulseDivider />
+        <div className="grid gap-5 lg:grid-cols-[280px_1fr] lg:items-start">
+          <motion.div {...fadeUp} className="clinical-card rounded-2xl border border-border p-5 lg:sticky lg:top-24">
+            <EyeDiagram />
+            <div className="mt-4 rounded-2xl bg-secondary p-4">
+              <p className="text-xs font-bold uppercase text-clinic-red">Did you know?</p>
+              <p className="mt-1 font-display text-xl font-black text-clinic-navy">Vision changes can be gradual.</p>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">Regular eye checks can help identify prescription changes, eye strain, and possible referral needs.</p>
+            </div>
+          </motion.div>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {optometryServices.map((service, index) => (
+              <CompactServiceCard key={service.title} icon={service.icon} title={service.title} category="Eye care" detail={service.detail} delay={index * 0.03} />
+            ))}
+          </div>
+        </div>
       </div>
-      <BookingBand cta="Book an eye test" service="eye test" />
-    </StandardPage>
+    </motion.section>
   );
 }
 
@@ -366,6 +402,19 @@ function RevealCard({ icon, title, eyebrow, text, delay = 0 }: { icon: string; t
   );
 }
 
+function CompactServiceCard({ icon, title, category, detail, delay = 0 }: { icon: string; title: string; category: string; detail: string; delay?: number }) {
+  return (
+    <motion.article {...fadeUp} transition={{ duration: 0.4, delay }} className="group rounded-2xl border border-border bg-card p-4 text-left shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-raised">
+      <div className="flex items-center gap-3">
+        <span className="text-3xl">{icon}</span>
+        <span className="inline-flex rounded-full bg-secondary px-2.5 py-0.5 text-xs font-bold uppercase text-clinic-red">{category}</span>
+      </div>
+      <h2 className="mt-3 font-display text-lg font-black text-clinic-navy">{title}</h2>
+      <p className="mt-1.5 text-sm leading-5 text-muted-foreground">{detail}</p>
+    </motion.article>
+  );
+}
+
 function BookingBand({ cta, service }: { cta: string; service: string }) {
   return (
     <motion.div {...fadeUp} className="mt-10 rounded-2xl border border-border bg-secondary p-6 md:flex md:items-center md:justify-between md:gap-6">
@@ -473,10 +522,8 @@ function InfoBlock({ title, text }: { title: string; text: string }) {
 function MedicalHeartbeatDiagram() {
   return (
     <svg viewBox="0 0 520 300" className="h-auto w-full text-clinic-navy" role="img" aria-label="Animated medical heartbeat diagram">
-      <motion.circle cx="260" cy="150" r="108" fill="var(--clinic-ice)" stroke="currentColor" strokeWidth="10" animate={{ scale: [1, 1.025, 1] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }} style={{ transformOrigin: "260px 150px" }} />
       <motion.path d="M145 150C112 108 126 62 178 62C215 62 240 86 260 118C280 86 305 62 342 62C394 62 408 108 375 150L260 256L145 150Z" fill="none" stroke="var(--clinic-red)" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.4, ease: "easeOut" }} />
       <path d="M30 152H132L154 122L178 184L210 62L248 222L278 152H490" fill="none" stroke="var(--clinic-red)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" className="pulse-line" />
-      <circle cx="64" cy="152" r="16" fill="var(--clinic-red)" />
       <text x="38" y="45" fill="currentColor" fontSize="22" fontWeight="700">Medical care</text>
       <text x="346" y="272" fill="currentColor" fontSize="22" fontWeight="700">Heartbeat</text>
     </svg>
