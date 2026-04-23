@@ -3,7 +3,7 @@ import { animate, motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 
-import logo from "@/assets/dr-kgoete-logo.png";
+import logo from "@/assets/dr-kgoete-logo-new.png";
 
 const practiceName = "Dr Kabelo Kgoete Medical Practice & Optometry";
 const address = "Medical Centre, Stand No 004 Ga-Moloi, Caprive Village, Glen Cowie, 1061";
@@ -23,7 +23,7 @@ const hours = [
 
 const trustSignals = [
   ["Doctor in Glen Cowie", "Professional primary healthcare at Medical Centre Ga-Moloi"],
-  ["Medical & optometry", "One practice for clinical care and vision support"],
+  ["HPCSA compliant care", "Professional standards, privacy, and ethical clinical communication"],
   ["WhatsApp booking", "Fast appointment requests with clear details"],
   ["Accessible hours", "Open weekdays and Saturday morning"],
 ] as const;
@@ -41,6 +41,11 @@ const medicalServices = [
   { icon: "🧪", title: "Health Screenings", category: "Screening", detail: "Preventive checks and risk screening to help identify issues early and guide suitable care pathways." },
   { icon: "👶", title: "Child Healthcare", category: "Family Care", detail: "Professional support for common child health concerns, check-ups, and referral guidance where needed." },
   { icon: "❤️", title: "Hypertension & Diabetes Care", category: "Chronic Care", detail: "Clinical monitoring, lifestyle guidance, and follow-up planning for blood pressure and diabetes care." },
+  { icon: "♀️", title: "Women’s Health", category: "Family Care", detail: "Respectful consultations for women’s health concerns, wellness checks, counselling, and referral support when needed." },
+  { icon: "♂️", title: "Men’s Health", category: "Family Care", detail: "Confidential support for men’s health concerns, screening discussions, lifestyle risk, and appropriate clinical next steps." },
+  { icon: "🤰", title: "Antenatal Care", category: "Maternal Health", detail: "Pregnancy-related check-ins, routine monitoring guidance, health education, and referral coordination where appropriate." },
+  { icon: "🩹", title: "Minor Illness & Injury Care", category: "Acute Care", detail: "Assessment for common acute concerns such as flu-like symptoms, minor wounds, pain, and everyday urgent health questions." },
+  { icon: "💊", title: "Medication Reviews", category: "General Health", detail: "Practical review of current medication use, adherence concerns, side effects, and follow-up planning." },
   { icon: "🧾", title: "Medical Certificates", category: "General Health", detail: "Assessment-based certificates and documentation where clinically appropriate." },
 ] as const;
 
@@ -50,6 +55,11 @@ const optometryServices = [
   { icon: "👁️", title: "Eye Health Exams", detail: "Professional eye-health checks with referral guidance when specialist care may be required." },
   { icon: "🕶️", title: "Prescription Glasses", detail: "Guidance on lenses and frames suited to your prescription, comfort, and daily use." },
   { icon: "📊", title: "Contact Lens Fittings", detail: "Suitability guidance, fitting support, hygiene advice, and follow-up care for contact lens users." },
+  { icon: "💻", title: "Digital Eye Strain Support", detail: "Assessment and practical guidance for tired eyes, screen-related discomfort, and work or study vision needs." },
+  { icon: "👧", title: "Children’s Vision Checks", detail: "Age-appropriate checks for children’s visual comfort, school-related vision concerns, and referral guidance." },
+  { icon: "☀️", title: "UV & Sunglass Guidance", detail: "Advice on protective eyewear and lens options for outdoor comfort, glare, and daily eye protection." },
+  { icon: "📐", title: "Frame & Lens Advice", detail: "Support choosing frames and lenses that suit prescription requirements, comfort, durability, and daily routines." },
+  { icon: "🧼", title: "Contact Lens Hygiene", detail: "Clear education on safe lens wear, cleaning routines, comfort checks, and when to seek professional review." },
 ] as const;
 
 const journey = ["Request", "Confirm", "Visit", "Assess", "Follow up"];
@@ -105,19 +115,26 @@ export function HomePage() {
 
 export function AboutPage() {
   return (
-    <StandardPage eyebrow="About Dr Kgoete" title="Professional healthcare grounded in community access and clear communication." intro="Dr Kabelo Kgoete Medical Practice & Optometry supports patients from a single Glen Cowie practice with medical care, optometry, privacy, and practical follow-through.">
+    <StandardPage eyebrow="About Dr Kgoete" title="Professional healthcare grounded in clinical standards, privacy, and clear communication." intro="Dr Kabelo Kgoete Medical Practice & Optometry provides medical and eye-care services with a patient-first approach, professional ethics, and respectful follow-through.">
       <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
         <motion.div {...fadeUp} className="clinical-card rounded-2xl border border-border p-6">
-          <img src={logo} alt="Dr Kabelo Kgoete Medical Practice & Optometry logo" className="mx-auto max-w-xs object-contain" loading="lazy" decoding="async" />
+          <div className="grid aspect-[4/5] place-items-center rounded-2xl border border-border bg-secondary text-center shadow-soft">
+            <div>
+              <div className="mx-auto grid h-24 w-24 place-items-center rounded-full bg-card text-5xl shadow-soft">👨‍⚕️</div>
+              <p className="mt-5 font-display text-3xl font-black text-clinic-navy">Dr Kabelo Kgoete</p>
+              <p className="mt-2 text-sm font-bold uppercase text-clinic-red">Professional portrait placeholder</p>
+            </div>
+          </div>
           <div className="mt-6 rounded-2xl bg-secondary p-5">
             <p className="text-sm font-bold uppercase text-clinic-red">Practice address</p>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">{address}</p>
           </div>
         </motion.div>
         <div className="grid gap-4">
-          <InfoBlock title="Patient-centred medical care" text="Consultations are structured to help patients understand what is being assessed, what options may be appropriate, and what the next step should be." />
-          <InfoBlock title="Integrated optometry support" text="Vision and eye-health services are presented clearly so patients can book the right type of appointment with confidence." />
-          <InfoBlock title="HPCSA-conscious language" text="The website uses professional, factual service descriptions without promises, guarantees, or exaggerated claims." />
+          <InfoBlock title="Patient-centred medical care" text="Dr Kgoete focuses on careful consultation, clear explanations, and practical clinical next steps so patients understand their care pathway." />
+          <InfoBlock title="Medical and optometry support" text="The practice offers general healthcare and optometry services, helping families book the right appointment for medical concerns or vision needs." />
+          <InfoBlock title="HPCSA-compliant professional standards" text="Care communication is kept factual, ethical, and respectful, with patient privacy, informed consent, and appropriate referral guidance prioritised." />
+          <InfoBlock title="Community access in Glen Cowie" text="The practice supports local patients with weekday and Saturday availability, WhatsApp booking, and a clear address at Medical Centre Ga-Moloi." />
         </div>
       </div>
       <motion.blockquote {...fadeUp} className="mt-12 rounded-2xl section-band p-8 text-primary-foreground md:p-10">
@@ -131,7 +148,17 @@ export function AboutPage() {
 export function MedicalServicesPage() {
   return (
     <StandardPage eyebrow="Medical Services" title="Doctor in Glen Cowie for everyday healthcare and ongoing care needs." intro="Medical services are described clearly so patients can identify the right appointment type and book via WhatsApp or phone.">
-      <ServiceGrid services={medicalServices} field="Medical care" />
+      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <motion.div {...fadeUp} className="clinical-card rounded-2xl border border-border p-6">
+          <MedicalHeartbeatDiagram />
+          <div className="mt-6 rounded-2xl bg-secondary p-5">
+            <p className="text-sm font-bold uppercase text-clinic-red">Clinical care</p>
+            <p className="mt-2 font-display text-2xl font-black text-clinic-navy">Clear assessment before treatment decisions.</p>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">Appointments focus on understanding symptoms, risks, history, and the most appropriate next step.</p>
+          </div>
+        </motion.div>
+        <ServiceGrid services={medicalServices} field="Medical care" compact />
+      </div>
       <BookingBand cta="Book a medical appointment" service="medical appointment" />
     </StandardPage>
   );
@@ -237,10 +264,10 @@ function ServicesPreview() {
   return (
     <section className="bg-background py-16 md:py-24">
       <div className="clinic-container">
-        <SectionHeading eyebrow="Care pathways" title="Separate service pages for medical care and optometry." />
+        <SectionHeading eyebrow="Care pathways" title="Book the right care faster, with clear services for health and vision." />
         <div className="grid gap-4 md:grid-cols-2">
-          <Link to="/medical-services"><RevealCard icon="🩺" title="Medical Services" eyebrow="Doctor in Glen Cowie" text="General consultations, chronic care, health screenings, child healthcare, certificates, and appropriate referral guidance." /></Link>
-          <Link to="/optometry"><RevealCard icon="👓" title="Optometry" eyebrow="Optometrist Glen Cowie" text="Eye tests, vision screening, eye-health exams, prescription glasses, and contact lens fittings." /></Link>
+          <Link to="/medical-services"><RevealCard icon="🩺" title="Medical Services" eyebrow="Doctor in Glen Cowie" text="From everyday symptoms to chronic care, women’s and men’s health, child care, and antenatal support—start with a clear, respectful consultation." /></Link>
+          <Link to="/optometry"><RevealCard icon="👓" title="Optometry" eyebrow="Optometrist Glen Cowie" text="Book eye tests, vision screening, glasses, contact lens support, digital eye-strain care, and children’s vision checks with confidence." /></Link>
         </div>
       </div>
     </section>
@@ -402,6 +429,19 @@ function InfoBlock({ title, text }: { title: string; text: string }) {
       <h2 className="font-display text-xl font-bold text-clinic-navy">{title}</h2>
       <p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p>
     </motion.div>
+  );
+}
+
+function MedicalHeartbeatDiagram() {
+  return (
+    <svg viewBox="0 0 520 300" className="h-auto w-full text-clinic-navy" role="img" aria-label="Animated medical heartbeat diagram">
+      <motion.circle cx="260" cy="150" r="108" fill="var(--clinic-ice)" stroke="currentColor" strokeWidth="10" animate={{ scale: [1, 1.025, 1] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }} style={{ transformOrigin: "260px 150px" }} />
+      <motion.path d="M145 150C112 108 126 62 178 62C215 62 240 86 260 118C280 86 305 62 342 62C394 62 408 108 375 150L260 256L145 150Z" fill="none" stroke="var(--clinic-red)" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.4, ease: "easeOut" }} />
+      <path d="M30 152H132L154 122L178 184L210 62L248 222L278 152H490" fill="none" stroke="var(--clinic-red)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" className="pulse-line" />
+      <circle cx="64" cy="152" r="16" fill="var(--clinic-red)" />
+      <text x="38" y="45" fill="currentColor" fontSize="22" fontWeight="700">Medical care</text>
+      <text x="346" y="272" fill="currentColor" fontSize="22" fontWeight="700">Heartbeat</text>
+    </svg>
   );
 }
 
