@@ -389,6 +389,25 @@ function HoursSection() {
   );
 }
 
+function FacilityCarousel() {
+  return (
+    <motion.section {...fadeUp} className="mt-12">
+      <SectionHeading eyebrow="Inside the practice" title="A clear look at the facility patients visit." />
+      <div className="flex snap-x gap-4 overflow-x-auto pb-3 [scrollbar-width:thin]">
+        {facilityImages.map((image) => (
+          <article key={image.title} className="min-w-[82%] snap-center overflow-hidden rounded-2xl border border-border bg-card shadow-soft sm:min-w-[48%] lg:min-w-[32%]">
+            <img src={image.src} alt={image.alt} className="aspect-[4/3] w-full object-cover" loading="lazy" decoding="async" />
+            <div className="p-5">
+              <h2 className="font-display text-2xl font-black text-clinic-navy">{image.title}</h2>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Professional spaces and equipment supporting medical and optometry visits in Glen Cowie.</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </motion.section>
+  );
+}
+
 function CounterCard({ target, suffix, label }: { target: number; suffix: string; label: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
