@@ -111,7 +111,9 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
 function WhatsAppWidget() {
   return (
     <a href={whatsappLink} aria-label="Open WhatsApp chat" className="fixed bottom-24 left-4 z-40 grid h-14 w-14 place-items-center rounded-full bg-success text-2xl text-success-foreground shadow-raised transition-transform hover:-translate-y-1 md:bottom-6">
-      <span aria-hidden="true">☘</span>
+      <svg aria-hidden="true" viewBox="0 0 32 32" className="h-7 w-7" fill="currentColor">
+        <path d="M16.04 3.2A12.68 12.68 0 0 0 5.2 22.45L3.6 28.8l6.5-1.52A12.73 12.73 0 1 0 16.04 3.2Zm0 2.54a10.18 10.18 0 0 1 8.63 15.57 10.18 10.18 0 0 1-13.77 3.7l-.46-.27-3.86.9.94-3.75-.3-.49A10.15 10.15 0 0 1 16.04 5.74Zm-4.3 4.84c-.24 0-.62.09-.95.45-.33.36-1.25 1.22-1.25 2.98s1.28 3.45 1.46 3.69c.18.24 2.52 3.85 6.1 5.4.85.37 1.52.59 2.04.75.86.27 1.64.23 2.26.14.69-.1 2.12-.86 2.42-1.7.3-.83.3-1.55.21-1.7-.09-.15-.33-.24-.69-.42-.36-.18-2.12-1.04-2.45-1.16-.33-.12-.57-.18-.81.18-.24.36-.93 1.16-1.14 1.4-.21.24-.42.27-.78.09-.36-.18-1.52-.56-2.9-1.79-1.07-.95-1.79-2.13-2-2.49-.21-.36-.02-.55.16-.73.16-.16.36-.42.54-.63.18-.21.24-.36.36-.6.12-.24.06-.45-.03-.63-.09-.18-.81-1.96-1.11-2.68-.29-.7-.59-.6-.81-.61h-.69Z" />
+      </svg>
     </a>
   );
 }
