@@ -5,10 +5,10 @@ import { OptometryPage } from "@/components/site/ClinicPages";
 export const Route = createFileRoute("/optometry")({
   head: () => ({
     meta: [
-      { title: "Optometry Practice — Dr Kgoete Limpopo" },
-      { name: "description", content: "Eye exams, prescription lenses, frames, contact lens guidance, and eye-health referrals with Dr Kgoete Optometry." },
-      { property: "og:title", content: "Optometry Practice — Dr Kgoete" },
-      { property: "og:description", content: "Eye exams, lens prescriptions, frames, and optometry referrals in Mabopane." },
+      { title: "Optometrist Glen Cowie — Dr Kgoete" },
+      { name: "description", content: "Optometrist Glen Cowie for eye tests, vision screening, eye-health exams, prescription glasses, and contact lens fittings." },
+      { property: "og:title", content: "Optometrist Glen Cowie — Dr Kgoete" },
+      { property: "og:description", content: "Eye tests and optometry services at Medical Centre Ga-Moloi in Glen Cowie." },
     ],
   }),
   component: OptometryPage,

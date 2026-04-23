@@ -5,10 +5,10 @@ import { AboutPage } from "@/components/site/ClinicPages";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Dr Kabelo Kgoete — Medical & Optometry" },
-      { name: "description", content: "Meet Dr Kabelo Kgoete, a dual-qualified medical doctor and optometrist serving Limpopo with accessible, precise care." },
-      { property: "og:title", content: "About Dr Kgoete" },
-      { property: "og:description", content: "A local practice combining medical care and optometry with clear patient support." },
+      { title: "About Dr Kabelo Kgoete — Glen Cowie" },
+      { name: "description", content: "Learn about Dr Kabelo Kgoete Medical Practice & Optometry, a professional single-location practice in Glen Cowie." },
+      { property: "og:title", content: "About Dr Kabelo Kgoete" },
+      { property: "og:description", content: "Professional medical and optometry care from Medical Centre Ga-Moloi in Glen Cowie." },
     ],
   }),
   component: AboutPage,
