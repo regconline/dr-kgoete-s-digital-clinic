@@ -1,4 +1,9 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
-  "redirects": [{ "source": "/medical-practice", "destination": "/medical-services", "permanent": true }]
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ],
+  "redirects": [],
+  "headers": [],
+  "cleanUrls": true,
+  "trailingSlash": false
 }
