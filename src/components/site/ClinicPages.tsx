@@ -1,70 +1,67 @@
 import { Link } from "@tanstack/react-router";
-import { motion, useInView, animate } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { animate, motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 
 import logo from "@/assets/dr-kgoete-logo.png";
 
-const whatsappNumber = "2766666673";
+const practiceName = "Dr Kabelo Kgoete Medical Practice & Optometry";
+const address = "Medical Centre, Stand No 004 Ga-Moloi, Caprive Village, Glen Cowie, 1061";
+const phoneDisplay = "065 864 9186";
+const phoneHref = "+27658649186";
+const whatsappNumber = "27658649186";
 
-const trustSignals = [
-  ["Trusted by local community", "Confidential & professional care"],
-  ["2 locations available", "Glencowie & Jane Furse communities"],
-  ["GP & optometry", "Integrated health and vision support"],
-  ["Same-day appointments", "Limited daily slots available"],
-];
-
-const counters = [
-  [1000, "+", "Patients served"],
-  [2, "", "Locations"],
-  [10, "+", "Clinical services"],
-  [1, " day", "Same-day booking"],
+const hours = [
+  ["Monday", "8:00 AM – 5:00 PM"],
+  ["Tuesday", "8:00 AM – 5:00 PM"],
+  ["Wednesday", "8:00 AM – 5:00 PM"],
+  ["Thursday", "8:00 AM – 5:00 PM"],
+  ["Friday", "8:00 AM – 5:00 PM"],
+  ["Saturday", "8:00 AM – 1:00 PM"],
+  ["Sunday", "Closed"],
 ] as const;
 
-const journey = ["Book", "Visit", "Diagnose", "Treat", "Follow-up"];
+const trustSignals = [
+  ["Doctor in Glen Cowie", "Professional primary healthcare at Medical Centre Ga-Moloi"],
+  ["Medical & optometry", "One practice for clinical care and vision support"],
+  ["WhatsApp booking", "Fast appointment requests with clear details"],
+  ["Accessible hours", "Open weekdays and Saturday morning"],
+] as const;
 
-const testimonials = [
-  "Professional, patient and clear about next steps.",
-  "A calm practice experience with medical and eye-care guidance in one place.",
-];
-
-const faqs = [
-  ["Do you accept walk-ins?", "Patients can call ahead to confirm availability. Same-day appointments are available when slots remain."],
-  ["How do I book?", "Use the WhatsApp booking flow, call the practice, or send an email with your preferred service and time."],
-  ["What services are available?", "General consultations, chronic care, testing, procedures, optometry exams, lenses, frames, and referrals."],
-];
+const counters = [
+  [1, "", "Dedicated practice"],
+  [5, "+", "Weekday clinic days"],
+  [10, "+", "Care services"],
+  [6, "", "Days open weekly"],
+] as const;
 
 const medicalServices = [
-  { title: "General consultations", category: "General Health", duration: "30 min", detail: "Focused clinical assessment, clear treatment planning, and practical next steps for everyday health concerns." },
-  { title: "Chronic disease management", category: "General Health", duration: "30–45 min", detail: "Ongoing support for conditions that need monitoring, medication review, lifestyle guidance, and follow-up." },
-  { title: "Women’s health", category: "Women’s Health", duration: "30 min", detail: "Respectful consultations for screening, reproductive health concerns, prevention, and referral pathways." },
-  { title: "Family health screenings", category: "Testing", duration: "20–30 min", detail: "Preventive checks that help detect risk early and guide patients toward appropriate care." },
-  { title: "HIV testing", category: "Testing", duration: "15–20 min", detail: "Confidential testing with private counselling, professional guidance, and follow-up support where needed." },
-  { title: "Minor procedures", category: "Procedures", duration: "Varies", detail: "Practical in-room procedures with preparation guidance and after-care instructions." },
-  { title: "Medical certificates", category: "General Health", duration: "15 min", detail: "Assessment-based documentation where clinically appropriate." },
-  { title: "Specialist referrals", category: "General Health", duration: "20 min", detail: "Coordinated referral guidance when specialist investigation or treatment is required." },
-];
+  { icon: "🩺", title: "General Consultations", category: "General Health", detail: "Assessment and guidance for everyday health concerns, symptoms, medication questions, and appropriate next steps." },
+  { icon: "💉", title: "Chronic Disease Management", category: "Chronic Care", detail: "Ongoing review and support for long-term conditions that require monitoring, medication review, and follow-up." },
+  { icon: "🧪", title: "Health Screenings", category: "Screening", detail: "Preventive checks and risk screening to help identify issues early and guide suitable care pathways." },
+  { icon: "👶", title: "Child Healthcare", category: "Family Care", detail: "Professional support for common child health concerns, check-ups, and referral guidance where needed." },
+  { icon: "❤️", title: "Hypertension & Diabetes Care", category: "Chronic Care", detail: "Clinical monitoring, lifestyle guidance, and follow-up planning for blood pressure and diabetes care." },
+  { icon: "🧾", title: "Medical Certificates", category: "General Health", detail: "Assessment-based certificates and documentation where clinically appropriate." },
+] as const;
 
 const optometryServices = [
-  { title: "Comprehensive eye examinations", detail: "Vision testing and eye-health screening for clearer, more comfortable sight." },
-  { title: "Prescription lenses", detail: "Accurate prescriptions and lens guidance for reading, distance, work, and daily comfort." },
-  { title: "Frame selection", detail: "Practical support choosing frames that fit your face, prescription, and daily routine." },
-  { title: "Contact lens guidance", detail: "Advice on suitability, handling, hygiene, and follow-up care." },
-  { title: "Eye health referrals", detail: "Referral support where further investigation or specialist care is needed." },
-  { title: "Visual comfort checks", detail: "Support for headaches, eye strain, screen fatigue, and changing vision needs." },
-];
+  { icon: "👓", title: "Eye Tests", detail: "Clear vision checks and prescription support for reading, distance, work, and everyday comfort." },
+  { icon: "🔍", title: "Vision Screening", detail: "Screening for changes in vision, eye strain, headaches, and symptoms that may need further assessment." },
+  { icon: "👁️", title: "Eye Health Exams", detail: "Professional eye-health checks with referral guidance when specialist care may be required." },
+  { icon: "🕶️", title: "Prescription Glasses", detail: "Guidance on lenses and frames suited to your prescription, comfort, and daily use." },
+  { icon: "📊", title: "Contact Lens Fittings", detail: "Suitability guidance, fitting support, hygiene advice, and follow-up care for contact lens users." },
+] as const;
 
-const serviceCategories = ["All", "Women’s Health", "General Health", "Testing", "Procedures"];
+const journey = ["Request", "Confirm", "Visit", "Assess", "Follow up"];
 
-const bookingSchema = z.object({
+const contactSchema = z.object({
   name: z.string().trim().min(2).max(80),
-  service: z.string().trim().min(2).max(80),
-  location: z.string().trim().min(2).max(80),
-  time: z.string().trim().min(2).max(80),
+  phone: z.string().trim().min(7).max(30),
+  message: z.string().trim().min(5).max(700),
 });
 
 const fadeUp = {
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 0, y: 22 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-80px" },
   transition: { duration: 0.55, ease: "easeOut" },
@@ -74,29 +71,28 @@ export function HomePage() {
   return (
     <>
       <section className="relative overflow-hidden hero-surface premium-hero">
-        <PulseSignature />
-        <div className="clinic-container grid min-h-[calc(100vh-5rem)] items-center gap-10 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
+        <PulseSignature prominent />
+        <div className="clinic-container grid min-h-[calc(100vh-5rem)] items-center gap-10 py-14 md:py-20 lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div className="relative z-10 max-w-3xl" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <p className="mb-5 inline-flex rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-2 text-xs font-bold uppercase text-primary-foreground shadow-soft backdrop-blur-lg">Now accepting patients</p>
-            <h1 className="text-5xl font-black leading-[0.95] text-primary-foreground sm:text-6xl lg:text-7xl">Dr Kabelo Kgoete Medical Practice & Optometry</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-primary-foreground/80">Private-clinic calm, local accessibility, and integrated medical and eye-care support for patients across Glencowie, Jane Furse, Limpopo, and nearby communities.</p>
+            <h1 className="text-5xl font-black leading-[0.98] text-primary-foreground sm:text-6xl lg:text-7xl">Premium medical care and optometry in Glen Cowie.</h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-primary-foreground/82">{practiceName} provides professional, accessible healthcare from {address}.</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href={whatsappUrl("appointment", "Glencowie", "today")} className="premium-button inline-flex h-13 items-center justify-center rounded-full bg-accent px-7 text-sm font-bold text-accent-foreground shadow-raised focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">WhatsApp to book</a>
-              <Link to="/medical-practice" className="inline-flex h-13 items-center justify-center rounded-full border border-primary-foreground/30 bg-primary-foreground/10 px-7 text-sm font-bold text-primary-foreground backdrop-blur-lg transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Explore services</Link>
+              <a href={whatsappUrl("appointment request")} className="premium-button inline-flex h-13 items-center justify-center rounded-full bg-accent px-7 text-sm font-bold text-accent-foreground shadow-raised focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Book Appointment</a>
+              <Link to="/medical-services" className="inline-flex h-13 items-center justify-center rounded-full border border-primary-foreground/30 bg-primary-foreground/10 px-7 text-sm font-bold text-primary-foreground backdrop-blur-lg transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">View services</Link>
             </div>
           </motion.div>
           <motion.div className="relative z-10 mx-auto grid w-full max-w-md gap-4" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.75, delay: 0.15 }}>
-            {trustSignals.slice(0, 4).map(([title, detail], index) => (
-              <motion.div key={title} className={`glass-panel rounded-2xl border border-primary-foreground/18 p-5 ${index % 2 ? "ml-8" : "mr-8"}`} animate={{ y: [0, -8, 0] }} transition={{ duration: 4 + index, repeat: Infinity, ease: "easeInOut" }}>
+            {trustSignals.map(([title, detail], index) => (
+              <motion.div key={title} className={`glass-panel rounded-2xl border border-primary-foreground/18 p-5 ${index % 2 ? "ml-8" : "mr-8"}`} animate={{ y: [0, -7, 0] }} transition={{ duration: 4 + index, repeat: Infinity, ease: "easeInOut" }}>
                 <p className="text-xs font-bold uppercase text-primary-foreground/70">0{index + 1}</p>
                 <p className="mt-2 font-display text-2xl font-black text-primary-foreground">{title}</p>
-                <p className="mt-1 text-sm leading-6 text-primary-foreground/72">{detail}</p>
+                <p className="mt-1 text-sm leading-6 text-primary-foreground/75">{detail}</p>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
-
       <TrustBar />
       <ServicesPreview />
       <StatsSection />
@@ -109,15 +105,19 @@ export function HomePage() {
 
 export function AboutPage() {
   return (
-    <StandardPage eyebrow="About Dr Kgoete" title="A dual-qualified medical doctor and optometrist delivering accessible, high-quality healthcare in Limpopo." intro="Dr Kabelo Kgoete is positioned around clinical clarity, community access, and a patient experience that feels calm from first contact to follow-up.">
+    <StandardPage eyebrow="About Dr Kgoete" title="Professional healthcare grounded in community access and clear communication." intro="Dr Kabelo Kgoete Medical Practice & Optometry supports patients from a single Glen Cowie practice with medical care, optometry, privacy, and practical follow-through.">
       <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
         <motion.div {...fadeUp} className="clinical-card rounded-2xl border border-border p-6">
-          <img src={logo} alt="Dr Kabelo Kgoete brand mark" className="mx-auto max-w-xs object-contain" loading="lazy" decoding="async" />
+          <img src={logo} alt="Dr Kabelo Kgoete Medical Practice & Optometry logo" className="mx-auto max-w-xs object-contain" loading="lazy" decoding="async" />
+          <div className="mt-6 rounded-2xl bg-secondary p-5">
+            <p className="text-sm font-bold uppercase text-clinic-red">Practice address</p>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">{address}</p>
+          </div>
         </motion.div>
         <div className="grid gap-4">
-          <InfoBlock title="Why the practice exists" text="The practice was shaped around patients who need dependable local access to medical care, clear communication, and eye-care services without an intimidating clinical experience." />
-          <InfoBlock title="Community connection" text="Serving Glencowie, Jane Furse, Limpopo, and surrounding communities, the brand is built on respectful consultation, privacy, and continuity." />
-          <InfoBlock title="Mission-driven care" text="Each visit is structured to reduce uncertainty: patients understand what is being assessed, what the options are, and what should happen next." />
+          <InfoBlock title="Patient-centred medical care" text="Consultations are structured to help patients understand what is being assessed, what options may be appropriate, and what the next step should be." />
+          <InfoBlock title="Integrated optometry support" text="Vision and eye-health services are presented clearly so patients can book the right type of appointment with confidence." />
+          <InfoBlock title="HPCSA-conscious language" text="The website uses professional, factual service descriptions without promises, guarantees, or exaggerated claims." />
         </div>
       </div>
       <motion.blockquote {...fadeUp} className="mt-12 rounded-2xl section-band p-8 text-primary-foreground md:p-10">
@@ -128,95 +128,77 @@ export function AboutPage() {
   );
 }
 
-export function MedicalPracticePage() {
-  const [category, setCategory] = useState("All");
-  const [selected, setSelected] = useState<(typeof medicalServices)[number] | null>(null);
-  const filtered = category === "All" ? medicalServices : medicalServices.filter((service) => service.category === category);
-
+export function MedicalServicesPage() {
   return (
-    <StandardPage eyebrow="Medical Practice" title="Everyday healthcare with disciplined clinical follow-through." intro="Filter services by need, review what to expect, and move quickly from concern to booking.">
-      <motion.div {...fadeUp} className="mb-7 flex flex-wrap gap-2">
-        {serviceCategories.map((item) => (
-          <button key={item} onClick={() => setCategory(item)} className={`rounded-full border px-4 py-2 text-sm font-bold transition-all ${category === item ? "border-accent bg-accent text-accent-foreground" : "border-border bg-card text-foreground hover:bg-secondary"}`}>{item}</button>
-        ))}
-      </motion.div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((service, index) => (
-          <RevealCard key={service.title} title={service.title} eyebrow={service.category} text={service.detail} delay={index * 0.04} onClick={() => setSelected(service)} />
-        ))}
-      </div>
-      <ServiceModal service={selected} onClose={() => setSelected(null)} />
-      <BookingBand cta="Request a medical appointment" service="medical consultation" />
+    <StandardPage eyebrow="Medical Services" title="Doctor in Glen Cowie for everyday healthcare and ongoing care needs." intro="Medical services are described clearly so patients can identify the right appointment type and book via WhatsApp or phone.">
+      <ServiceGrid services={medicalServices} field="Medical care" />
+      <BookingBand cta="Book a medical appointment" service="medical appointment" />
     </StandardPage>
   );
 }
 
+export const MedicalPracticePage = MedicalServicesPage;
+
 export function OptometryPage() {
   return (
-    <StandardPage eyebrow="Optometry Practice" title="Clearer vision, considered eye health, and practical lens guidance." intro="Educational, approachable eye care for patients who need testing, prescriptions, frames, contact lens guidance, or referral support.">
+    <StandardPage eyebrow="Optometry" title="Optometrist Glen Cowie for eye tests, glasses, and vision support." intro="Eye-care services focus on clear explanations, comfortable vision, and appropriate referral guidance where further care may be needed.">
       <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <motion.div {...fadeUp} className="clinical-card rounded-2xl border border-border p-6">
           <EyeDiagram />
           <div className="mt-6 rounded-2xl bg-secondary p-5">
             <p className="text-sm font-bold uppercase text-clinic-red">Did you know?</p>
-            <p className="mt-2 font-display text-2xl font-black text-clinic-navy">1 in 3 people need vision correction at some point.</p>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">Regular checks help detect prescription changes, eye strain, and referral needs earlier.</p>
+            <p className="mt-2 font-display text-2xl font-black text-clinic-navy">Vision changes can be gradual.</p>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">Regular eye checks can help identify prescription changes, eye strain, and possible referral needs.</p>
           </div>
         </motion.div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {optometryServices.map((service, index) => (
-            <RevealCard key={service.title} title={service.title} eyebrow="Eye care" text={service.detail} delay={index * 0.04} />
-          ))}
-        </div>
+        <ServiceGrid services={optometryServices} field="Eye care" compact />
       </div>
-      <BookingBand cta="Book an eye exam" service="eye exam" />
+      <BookingBand cta="Book an eye test" service="eye test" />
     </StandardPage>
   );
 }
 
 export function ContactPage() {
-  const [form, setForm] = useState({ name: "", service: "Medical consultation", location: "Glencowie", time: "Today if available" });
-  const valid = bookingSchema.safeParse(form).success;
-  const message = `Hi Dr Kgoete,\nMy name is ${form.name || "[Name]"}.\nI would like to book: ${form.service}.\nLocation: ${form.location}.\nPreferred time: ${form.time}.`;
+  const [form, setForm] = useState({ name: "", phone: "", message: "" });
+  const valid = contactSchema.safeParse(form).success;
+  const message = `Hi Dr Kgoete,\nMy name is ${form.name || "[Name]"}.\nMy phone number is ${form.phone || "[Phone]"}.\n${form.message || "I would like to book an appointment."}`;
 
   return (
-    <StandardPage eyebrow="Contact" title="Book faster with a smart WhatsApp request." intro="Same-day appointments may be available. Slots are limited per day, so contact the practice early for urgent booking needs.">
+    <StandardPage eyebrow="Contact" title="Book quickly through WhatsApp or call the Glen Cowie practice." intro="Send a clear appointment request, call directly, or use the map to find Medical Centre Ga-Moloi in Caprive Village.">
       <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr]">
-        <div className="clinical-card rounded-2xl border border-border p-6">
+        <motion.div {...fadeUp} className="clinical-card rounded-2xl border border-border p-6">
           <p className="text-sm font-bold uppercase text-clinic-red">Practice details</p>
           <div className="mt-5 grid gap-4 text-sm leading-6 text-muted-foreground">
-            <p><strong className="text-foreground">Phone:</strong> <a href="tel:+2766666673" className="hover:text-foreground">066 666 6673</a></p>
-            <p><strong className="text-foreground">Email:</strong> <a href="mailto:info@drkgoete.co.za" className="hover:text-foreground">info@drkgoete.co.za</a></p>
-            <p><strong className="text-foreground">Locations:</strong> Glencowie & Jane Furse communities</p>
-            <p><strong className="text-foreground">Registration:</strong> Available on request at reception</p>
+            <p><strong className="text-foreground">Phone / WhatsApp:</strong> <a href={`tel:${phoneHref}`} className="hover:text-foreground">{phoneDisplay}</a></p>
+            <p><strong className="text-foreground">Address:</strong> {address}</p>
+            <p><strong className="text-foreground">Registration:</strong> Available at reception.</p>
           </div>
-          <div className="mt-6 rounded-2xl bg-secondary p-5">
-            <p className="font-display text-2xl font-black text-clinic-navy">Same-day appointments available</p>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">Limited slots are held daily for patients who need timely support.</p>
+          <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-secondary">
+            <iframe title="Map to Dr Kabelo Kgoete Medical Practice & Optometry" src="https://www.google.com/maps?q=Medical%20Centre%20Stand%20No%20004%20Ga-Moloi%20Caprive%20Village%20Glen%20Cowie%201061&output=embed" className="h-72 w-full" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
           </div>
-        </div>
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-soft">
-          <p className="font-display text-2xl font-black text-clinic-navy">WhatsApp message builder</p>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            <BookingInput label="Your name" value={form.name} onChange={(name) => setForm({ ...form, name })} />
-            <BookingInput label="Service" value={form.service} onChange={(service) => setForm({ ...form, service })} />
-            <BookingInput label="Location" value={form.location} onChange={(location) => setForm({ ...form, location })} />
-            <BookingInput label="Preferred time" value={form.time} onChange={(time) => setForm({ ...form, time })} />
+        </motion.div>
+        <motion.div {...fadeUp} className="rounded-2xl border border-border bg-card p-6 shadow-soft">
+          <p className="font-display text-2xl font-black text-clinic-navy">WhatsApp contact form</p>
+          <div className="mt-5 grid gap-4">
+            <BookingInput label="Name" value={form.name} onChange={(name) => setForm({ ...form, name })} />
+            <BookingInput label="Phone" value={form.phone} onChange={(phone) => setForm({ ...form, phone })} />
+            <label className="grid gap-2 text-sm font-bold text-foreground">Message<textarea value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value.slice(0, 700) })} className="min-h-32 rounded-2xl border border-input bg-background px-4 py-3 text-sm font-medium outline-none focus:ring-2 focus:ring-ring" /></label>
           </div>
           <pre className="mt-5 whitespace-pre-wrap rounded-2xl bg-secondary p-5 text-sm leading-6 text-foreground">{message}</pre>
-          <a href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`} aria-disabled={!valid} className="premium-button mt-5 inline-flex h-12 items-center justify-center rounded-full bg-accent px-6 text-sm font-bold text-accent-foreground shadow-soft">Send WhatsApp request</a>
-        </div>
+          <a href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`} aria-disabled={!valid} className={`premium-button mt-5 inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-bold shadow-soft ${valid ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Chat on WhatsApp</a>
+        </motion.div>
       </div>
+      <HoursSection />
     </StandardPage>
   );
 }
 
 export function BlogPage() {
-  const posts = ["When should you get tested for HIV?", "Eye-care habits that protect daily vision", "Women’s health checks worth scheduling", "What to know before circumcision consultation"];
+  const posts = ["When to book a general consultation", "Eye-care habits that support daily comfort", "Understanding routine health screenings", "Preparing for your first optometry visit"];
   return (
-    <StandardPage eyebrow="Health Journal" title="Practical health and eye-care guidance for local patients." intro="A focused resource hub designed to answer common questions before patients book.">
+    <StandardPage eyebrow="Health Journal" title="Practical health and eye-care guidance for Glen Cowie patients." intro="Short educational articles written in professional, patient-friendly language.">
       <div className="grid gap-4 md:grid-cols-2">
-        {posts.map((post) => <InfoBlock key={post} title={post} text="Clear, patient-friendly education from the practice to support better conversations and earlier care decisions." />)}
+        {posts.map((post) => <InfoBlock key={post} title={post} text="Clear, factual education to support better questions during a professional consultation." />)}
       </div>
     </StandardPage>
   );
@@ -226,10 +208,10 @@ export function SeoLocationPage({ eyebrow, title, intro, location, service }: { 
   return (
     <StandardPage eyebrow={eyebrow} title={title} intro={intro}>
       <article className="prose-content clinical-card rounded-2xl border border-border p-6 md:p-8">
-        <p>Patients searching for {service} in {location} often need more than a list of services. They need a practice that feels trustworthy, accessible, and clear about the next step. Dr Kabelo Kgoete Medical Practice & Optometry supports local families and individuals with medical consultations, screening, chronic care guidance, optometry services, referrals, and practical follow-up.</p>
-        <p>The practice experience is designed to reduce uncertainty. From first contact, patients can explain what they need, confirm the most suitable appointment type, and prepare for the visit with simple guidance. Whether the concern is general health, vision changes, testing, women’s health, or an ongoing condition, the goal is to provide calm, confidential, and professional care.</p>
-        <p>For patients in and around {location}, convenience matters. Same-day appointments may be available, and WhatsApp booking helps patients share their preferred service, location, and time quickly. The integrated medical and optometry model also means patients can access primary healthcare and eye-care support through one trusted brand.</p>
-        <p>Book by phone or WhatsApp to confirm availability, ask what to bring, and choose the right service pathway for your needs.</p>
+        <p>{practiceName} is based at {address}. Patients searching for {service} in {location} can contact the Glen Cowie practice for professional medical and optometry services.</p>
+        <p>The practice focuses on clear communication, respectful consultation, and practical next steps. Patients can book by WhatsApp or phone and ask what to bring before their visit.</p>
+        <p>Services include general consultations, chronic care support, health screenings, child healthcare, eye tests, vision screening, prescription glasses, and contact lens fittings.</p>
+        <p>For urgent concerns, patients should call directly so availability and appropriate care guidance can be discussed.</p>
       </article>
       <BookingBand cta="Book with Dr Kgoete" service={service} />
     </StandardPage>
@@ -241,10 +223,10 @@ function TrustBar() {
     <section className="bg-card py-6">
       <div className="clinic-container grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {trustSignals.map(([title, detail]) => (
-          <div key={title} className="rounded-2xl border border-border bg-background p-4 shadow-soft">
+          <motion.div key={title} {...fadeUp} className="rounded-2xl border border-border bg-background p-4 shadow-soft">
             <p className="text-sm font-bold text-clinic-navy">{title}</p>
             <p className="mt-1 text-xs leading-5 text-muted-foreground">{detail}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
@@ -255,10 +237,10 @@ function ServicesPreview() {
   return (
     <section className="bg-background py-16 md:py-24">
       <div className="clinic-container">
-        <SectionHeading eyebrow="Care pathways" title="Services designed around what patients need to do next." />
+        <SectionHeading eyebrow="Care pathways" title="Separate service pages for medical care and optometry." />
         <div className="grid gap-4 md:grid-cols-2">
-          <Link to="/medical-practice"><RevealCard title="Medical Practice" eyebrow="GP services" text="Consultations, chronic care, women’s health, testing, minor procedures, certificates, and referrals." /></Link>
-          <Link to="/optometry"><RevealCard title="Optometry Practice" eyebrow="Eye care" text="Eye examinations, lens prescriptions, frames, contact lens guidance, visual comfort, and referrals." /></Link>
+          <Link to="/medical-services"><RevealCard icon="🩺" title="Medical Services" eyebrow="Doctor in Glen Cowie" text="General consultations, chronic care, health screenings, child healthcare, certificates, and appropriate referral guidance." /></Link>
+          <Link to="/optometry"><RevealCard icon="👓" title="Optometry" eyebrow="Optometrist Glen Cowie" text="Eye tests, vision screening, eye-health exams, prescription glasses, and contact lens fittings." /></Link>
         </div>
       </div>
     </section>
@@ -269,7 +251,7 @@ function StatsSection() {
   return (
     <section className="section-band py-16 text-primary-foreground md:py-24">
       <div className="clinic-container">
-        <SectionHeading eyebrow="Practice confidence" title="Built for local access with private-clinic attention." light />
+        <SectionHeading eyebrow="Practice confidence" title="A single-location practice built for local access." light />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {counters.map(([target, suffix, label]) => <CounterCard key={label} target={target} suffix={suffix} label={label} />)}
         </div>
@@ -282,7 +264,7 @@ function PatientJourney() {
   return (
     <section className="bg-card py-16 md:py-24">
       <div className="clinic-container">
-        <SectionHeading eyebrow="Patient journey" title="A simpler path from concern to follow-up." />
+        <SectionHeading eyebrow="Patient journey" title="A simple path from booking to follow-up." />
         <div className="grid gap-3 md:grid-cols-5">
           {journey.map((step, index) => (
             <motion.div key={step} {...fadeUp} transition={{ duration: 0.45, delay: index * 0.05 }} className="rounded-2xl border border-border bg-background p-5 shadow-soft">
@@ -301,15 +283,17 @@ function TestimonialsAndFaq() {
     <section className="bg-background py-16 md:py-24">
       <div className="clinic-container grid gap-8 lg:grid-cols-2">
         <div>
-          <SectionHeading eyebrow="Patient trust" title="Quiet confidence, not noise." />
+          <SectionHeading eyebrow="Patient trust" title="Professional care, clearly explained." />
           <div className="grid gap-4">
-            {testimonials.map((item) => <blockquote key={item} className="rounded-2xl border border-border bg-card p-6 text-lg leading-8 shadow-soft">“{item}”</blockquote>)}
+            {["Confidential appointments with practical next steps.", "Medical and optometry support from one Glen Cowie practice."].map((item) => <blockquote key={item} className="rounded-2xl border border-border bg-card p-6 text-lg leading-8 shadow-soft">“{item}”</blockquote>)}
           </div>
         </div>
         <div>
           <SectionHeading eyebrow="FAQ" title="Answers before you book." />
           <div className="grid gap-3">
-            {faqs.map(([q, a]) => <InfoBlock key={q} title={q} text={a} />)}
+            <InfoBlock title="Do you accept walk-ins?" text="Please call or WhatsApp first to confirm availability for the day." />
+            <InfoBlock title="How do I book?" text="Use the WhatsApp booking button or call the practice on 065 864 9186." />
+            <InfoBlock title="Where is the practice?" text={address} />
           </div>
         </div>
       </div>
@@ -321,44 +305,41 @@ function EmergencyNotice() {
   return <div className="bg-accent py-3 text-center text-sm font-bold text-accent-foreground">For emergencies, please call the practice directly.</div>;
 }
 
-function RevealCard({ title, eyebrow, text, delay = 0, onClick }: { title: string; eyebrow: string; text: string; delay?: number; onClick?: () => void }) {
-  const Comp = onClick ? motion.button : motion.article;
-  return (
-    <Comp {...fadeUp} transition={{ duration: 0.45, delay }} onClick={onClick} className="group min-h-48 w-full rounded-2xl border border-border bg-card p-6 text-left shadow-soft transition-all hover:-translate-y-1 hover:shadow-raised">
-      <span className="inline-flex rounded-full bg-secondary px-3 py-1 text-xs font-bold uppercase text-clinic-red">{eyebrow}</span>
-      <h2 className="mt-5 font-display text-2xl font-black text-clinic-navy">{title}</h2>
-      <p className="mt-3 text-sm leading-6 text-muted-foreground md:max-h-12 md:overflow-hidden md:transition-all md:duration-300 md:group-hover:max-h-40">{text}</p>
-    </Comp>
-  );
+function ServiceGrid({ services, field, compact = false }: { services: readonly { icon: string; title: string; detail: string }[]; field: string; compact?: boolean }) {
+  return <div className={`grid gap-4 ${compact ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3"}`}>{services.map((service, index) => <RevealCard key={service.title} icon={service.icon} title={service.title} eyebrow={field} text={service.detail} delay={index * 0.04} />)}</div>;
 }
 
-function ServiceModal({ service, onClose }: { service: (typeof medicalServices)[number] | null; onClose: () => void }) {
-  if (!service) return null;
+function RevealCard({ icon, title, eyebrow, text, delay = 0 }: { icon: string; title: string; eyebrow: string; text: string; delay?: number }) {
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-background/80 p-4 backdrop-blur-lg" role="dialog" aria-modal="true">
-      <div className="max-w-lg rounded-2xl border border-border bg-card p-6 shadow-raised">
-        <p className="text-sm font-bold uppercase text-clinic-red">{service.category}</p>
-        <h2 className="mt-3 font-display text-3xl font-black text-clinic-navy">{service.title}</h2>
-        <p className="mt-4 text-sm leading-7 text-muted-foreground">{service.detail}</p>
-        <p className="mt-4 text-sm font-bold text-foreground">Expected duration: {service.duration}</p>
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <a href={whatsappUrl(service.title, "Glencowie", "next available slot")} className="inline-flex h-11 items-center justify-center rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground">Book this service</a>
-          <button onClick={onClose} className="inline-flex h-11 items-center justify-center rounded-full border border-border bg-background px-5 text-sm font-bold text-foreground">Close</button>
-        </div>
-      </div>
-    </div>
+    <motion.article {...fadeUp} transition={{ duration: 0.45, delay }} className="group min-h-52 w-full rounded-2xl border border-border bg-card p-6 text-left shadow-soft transition-all hover:-translate-y-1 hover:shadow-raised">
+      <motion.span className="block text-4xl" whileHover={{ scale: 1.08, rotate: -3 }}>{icon}</motion.span>
+      <span className="mt-5 inline-flex rounded-full bg-secondary px-3 py-1 text-xs font-bold uppercase text-clinic-red">{eyebrow}</span>
+      <h2 className="mt-4 font-display text-2xl font-black text-clinic-navy">{title}</h2>
+      <p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p>
+    </motion.article>
   );
 }
 
 function BookingBand({ cta, service }: { cta: string; service: string }) {
   return (
-    <div className="mt-10 rounded-2xl border border-border bg-secondary p-6 md:flex md:items-center md:justify-between md:gap-6">
+    <motion.div {...fadeUp} className="mt-10 rounded-2xl border border-border bg-secondary p-6 md:flex md:items-center md:justify-between md:gap-6">
       <div>
         <p className="font-display text-2xl font-black text-clinic-navy">Need help choosing the right appointment?</p>
         <p className="mt-2 text-sm text-muted-foreground">Call or WhatsApp the practice and the team will guide you to the appropriate service.</p>
       </div>
-      <a href={whatsappUrl(service, "Glencowie", "next available slot")} className="premium-button mt-5 inline-flex h-12 items-center justify-center rounded-full bg-accent px-6 text-sm font-bold text-accent-foreground shadow-soft md:mt-0">{cta}</a>
-    </div>
+      <a href={whatsappUrl(service)} className="premium-button mt-5 inline-flex h-12 items-center justify-center rounded-full bg-accent px-6 text-sm font-bold text-accent-foreground shadow-soft md:mt-0">{cta}</a>
+    </motion.div>
+  );
+}
+
+function HoursSection() {
+  return (
+    <motion.div {...fadeUp} className="mt-8 rounded-2xl border border-border bg-card p-6 shadow-soft">
+      <h2 className="font-display text-3xl font-black text-clinic-navy">Operating hours</h2>
+      <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {hours.map(([day, time]) => <div key={day} className="rounded-2xl bg-secondary p-4"><p className="text-sm font-bold text-foreground">{day}</p><p className="mt-1 text-sm text-muted-foreground">{time}</p></div>)}
+      </div>
+    </motion.div>
   );
 }
 
@@ -399,6 +380,7 @@ function StandardPage({ eyebrow, title, intro, children }: { eyebrow: string; ti
           <h1 className="text-4xl font-black leading-tight text-clinic-navy sm:text-5xl lg:text-6xl">{title}</h1>
           <p className="mt-5 text-lg leading-8 text-muted-foreground">{intro}</p>
         </div>
+        <PulseDivider />
         {children}
       </div>
     </motion.section>
@@ -436,15 +418,23 @@ function EyeDiagram() {
   );
 }
 
-function PulseSignature() {
+function PulseSignature({ prominent = false }: { prominent?: boolean }) {
   return (
-    <svg className="pointer-events-none absolute inset-x-0 top-28 h-44 w-full text-accent opacity-30" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true">
-      <path className="pulse-line" d="M0 104H225L246 72L268 138L298 34L333 150L365 104H710C752 35 830 34 875 104C920 174 998 173 1037 104H1200" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+    <svg className={`pointer-events-none absolute inset-x-0 top-24 w-full text-accent ${prominent ? "h-64 opacity-55" : "h-28 opacity-25"}`} viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
+      <motion.path d="M0 124H210L236 82L265 166L300 42L340 178L372 124H680C725 48 805 48 850 124C895 200 975 200 1020 124C1042 88 1087 88 1110 124H1200" fill="none" stroke="currentColor" strokeWidth={prominent ? 10 : 6} strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 2.4, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }} />
     </svg>
   );
 }
 
-function whatsappUrl(service: string, location: string, time: string) {
-  const message = `Hi Dr Kgoete,\nMy name is [Name].\nI would like to book: ${service}.\nLocation: ${location}.\nPreferred time: ${time}.`;
+function PulseDivider() {
+  return (
+    <svg className="mb-8 h-8 w-full text-accent opacity-50" viewBox="0 0 900 60" preserveAspectRatio="none" aria-hidden="true">
+      <path className="pulse-line" d="M0 32H250L268 16L290 44L318 8L348 52L372 32H900" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function whatsappUrl(service: string) {
+  const message = `Hi Dr Kgoete,\nMy name is [Name].\nI would like to book: ${service}.\nPractice: Glen Cowie.\nPreferred time: [Preferred time].`;
   return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 }

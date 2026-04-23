@@ -5,10 +5,10 @@ import { ContactPage } from "@/components/site/ClinicPages";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Book Dr Kgoete — WhatsApp or Call" },
-      { name: "description", content: "Book Dr Kgoete Medical Practice & Optometry by WhatsApp, phone, or email for same-day appointment availability." },
-      { property: "og:title", content: "Contact Dr Kgoete" },
-      { property: "og:description", content: "Call or email Dr Kgoete Medical Practice & Optometry for appointments and enquiries." },
+      { title: "Contact Dr Kgoete — Glen Cowie" },
+      { name: "description", content: "Contact Dr Kabelo Kgoete Medical Practice & Optometry at Medical Centre Ga-Moloi, Glen Cowie. Call or WhatsApp 065 864 9186." },
+      { property: "og:title", content: "Contact Dr Kgoete — Glen Cowie" },
+      { property: "og:description", content: "Book by WhatsApp or call the Glen Cowie medical and optometry practice." },
     ],
   }),
   component: ContactPage,
