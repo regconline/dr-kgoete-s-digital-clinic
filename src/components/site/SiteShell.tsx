@@ -2,16 +2,16 @@ import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
-import logo from "@/assets/dr-kgoete-logo.png";
+import logo from "@/assets/dr-kgoete-logo-new.png";
 
 const whatsappLink = "https://wa.me/27658649186?text=Hi%20Dr%20Kgoete%2C%20I%20would%20like%20to%20book%20an%20appointment.";
 const phoneHref = "tel:+27658649186";
 
 const navItems = [
   { to: "/", label: "Home" },
-  { to: "/medical-services", label: "Medical Services" },
-  { to: "/optometry", label: "Optometry" },
   { to: "/about", label: "About" },
+  { to: "/medical-services", label: "Medical" },
+  { to: "/optometry", label: "Optometry" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -23,7 +23,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-50 border-b border-border nav-glass">
         <div className="clinic-container flex min-h-20 items-center justify-between gap-3 py-3">
           <Link to="/" className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" onClick={() => setOpen(false)}>
-            <img src={logo} alt="Dr Kabelo Kgoete Medical Practice & Optometry logo" className="h-12 w-12 rounded-sm object-contain" decoding="async" />
+            <img src={logo} alt="Dr Kabelo Kgoete Medical Practice & Optometry logo" className="h-16 w-16 rounded-sm object-contain" decoding="async" />
             <span className="hidden leading-tight sm:block">
               <span className="block font-display text-sm font-bold uppercase text-clinic-navy">Dr Kabelo Kgoete</span>
               <span className="block text-xs font-medium text-muted-foreground">Medical Practice & Optometry</span>
@@ -76,7 +76,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <footer className="border-t border-border bg-card">
         <div className="clinic-container grid gap-8 py-10 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
           <div className="flex items-start gap-3">
-            <img src={logo} alt="Dr Kabelo Kgoete Medical Practice & Optometry logo" className="h-14 w-14 object-contain" loading="lazy" decoding="async" />
+            <img src={logo} alt="Dr Kabelo Kgoete Medical Practice & Optometry logo" className="h-[4.5rem] w-[4.5rem] object-contain" loading="lazy" decoding="async" />
             <div>
               <p className="font-display text-lg font-bold text-clinic-navy">Dr Kabelo Kgoete</p>
               <p className="text-sm text-muted-foreground">Confidential & professional care.</p>
@@ -87,7 +87,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           <div>
             <p className="mb-3 text-sm font-bold uppercase text-clinic-navy">Practice</p>
             <div className="grid gap-2 text-sm text-muted-foreground">
-              <Link to="/medical-services" className="hover:text-foreground">Medical Services</Link>
+              <Link to="/medical-services" className="hover:text-foreground">Medical</Link>
               <Link to="/optometry" className="hover:text-foreground">Optometry</Link>
               <Link to="/about" className="hover:text-foreground">About Dr Kgoete</Link>
               <Link to="/contact" className="hover:text-foreground">Contact</Link>
