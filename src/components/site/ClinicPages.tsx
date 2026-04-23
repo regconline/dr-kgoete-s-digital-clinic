@@ -3,7 +3,7 @@ import { animate, motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 
-import logo from "@/assets/dr-kgoete-logo.png";
+import logo from "@/assets/dr-kgoete-logo-new.png";
 
 const practiceName = "Dr Kabelo Kgoete Medical Practice & Optometry";
 const address = "Medical Centre, Stand No 004 Ga-Moloi, Caprive Village, Glen Cowie, 1061";
@@ -23,7 +23,7 @@ const hours = [
 
 const trustSignals = [
   ["Doctor in Glen Cowie", "Professional primary healthcare at Medical Centre Ga-Moloi"],
-  ["Medical & optometry", "One practice for clinical care and vision support"],
+  ["HPCSA compliant care", "Professional standards, privacy, and ethical clinical communication"],
   ["WhatsApp booking", "Fast appointment requests with clear details"],
   ["Accessible hours", "Open weekdays and Saturday morning"],
 ] as const;
@@ -41,6 +41,11 @@ const medicalServices = [
   { icon: "🧪", title: "Health Screenings", category: "Screening", detail: "Preventive checks and risk screening to help identify issues early and guide suitable care pathways." },
   { icon: "👶", title: "Child Healthcare", category: "Family Care", detail: "Professional support for common child health concerns, check-ups, and referral guidance where needed." },
   { icon: "❤️", title: "Hypertension & Diabetes Care", category: "Chronic Care", detail: "Clinical monitoring, lifestyle guidance, and follow-up planning for blood pressure and diabetes care." },
+  { icon: "♀️", title: "Women’s Health", category: "Family Care", detail: "Respectful consultations for women’s health concerns, wellness checks, counselling, and referral support when needed." },
+  { icon: "♂️", title: "Men’s Health", category: "Family Care", detail: "Confidential support for men’s health concerns, screening discussions, lifestyle risk, and appropriate clinical next steps." },
+  { icon: "🤰", title: "Antenatal Care", category: "Maternal Health", detail: "Pregnancy-related check-ins, routine monitoring guidance, health education, and referral coordination where appropriate." },
+  { icon: "🩹", title: "Minor Illness & Injury Care", category: "Acute Care", detail: "Assessment for common acute concerns such as flu-like symptoms, minor wounds, pain, and everyday urgent health questions." },
+  { icon: "💊", title: "Medication Reviews", category: "General Health", detail: "Practical review of current medication use, adherence concerns, side effects, and follow-up planning." },
   { icon: "🧾", title: "Medical Certificates", category: "General Health", detail: "Assessment-based certificates and documentation where clinically appropriate." },
 ] as const;
 
@@ -50,6 +55,11 @@ const optometryServices = [
   { icon: "👁️", title: "Eye Health Exams", detail: "Professional eye-health checks with referral guidance when specialist care may be required." },
   { icon: "🕶️", title: "Prescription Glasses", detail: "Guidance on lenses and frames suited to your prescription, comfort, and daily use." },
   { icon: "📊", title: "Contact Lens Fittings", detail: "Suitability guidance, fitting support, hygiene advice, and follow-up care for contact lens users." },
+  { icon: "💻", title: "Digital Eye Strain Support", detail: "Assessment and practical guidance for tired eyes, screen-related discomfort, and work or study vision needs." },
+  { icon: "👧", title: "Children’s Vision Checks", detail: "Age-appropriate checks for children’s visual comfort, school-related vision concerns, and referral guidance." },
+  { icon: "☀️", title: "UV & Sunglass Guidance", detail: "Advice on protective eyewear and lens options for outdoor comfort, glare, and daily eye protection." },
+  { icon: "📐", title: "Frame & Lens Advice", detail: "Support choosing frames and lenses that suit prescription requirements, comfort, durability, and daily routines." },
+  { icon: "🧼", title: "Contact Lens Hygiene", detail: "Clear education on safe lens wear, cleaning routines, comfort checks, and when to seek professional review." },
 ] as const;
 
 const journey = ["Request", "Confirm", "Visit", "Assess", "Follow up"];
