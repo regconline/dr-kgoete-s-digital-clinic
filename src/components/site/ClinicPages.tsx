@@ -3,7 +3,13 @@ import { animate, motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 
+import doctorConsultationImage from "@/assets/dr-kgoete-consultation.jpeg";
+import doctorGreenAttireImage from "@/assets/dr-kgoete-green-attire.jpeg";
 import logo from "@/assets/dr-kgoete-logo-new.png";
+import eyeChartImage from "@/assets/facility-eye-chart.jpeg";
+import receptionImage from "@/assets/facility-reception.jpeg";
+import ultrasoundImage from "@/assets/facility-ultrasound.jpeg";
+import waitingAreaImage from "@/assets/facility-waiting-area.jpeg";
 
 const practiceName = "Dr Kabelo Kgoete Medical Practice & Optometry";
 const address = "Medical Centre, Stand No 004 Ga-Moloi, Caprive Village, Glen Cowie, 1061";
@@ -64,6 +70,16 @@ const optometryServices = [
 
 const journey = ["Request", "Confirm", "Visit", "Assess", "Follow up"];
 
+const facilityImages = [
+  { src: waitingAreaImage, alt: "Patient waiting area at Dr Kabelo Kgoete Medical Practice and Optometry", title: "Patient waiting area" },
+  { src: receptionImage, alt: "Reception area at Medical Centre Ga-Moloi in Glen Cowie", title: "Reception and check-in" },
+  { src: doctorConsultationImage, alt: "Dr Kabelo Kgoete consulting with clinical equipment", title: "Consultation room" },
+  { src: ultrasoundImage, alt: "Clinical ultrasound equipment available at the practice", title: "Medical equipment" },
+  { src: eyeChartImage, alt: "Illuminated eye chart used for optometry screening", title: "Vision screening" },
+] as const;
+
+const googleBusinessProfileUrl = "https://share.google/JQprgoQg3Xaex8Hxv";
+
 const contactSchema = z.object({
   name: z.string().trim().min(2).max(80),
   phone: z.string().trim().min(7).max(30),
@@ -118,11 +134,11 @@ export function AboutPage() {
     <StandardPage eyebrow="About Dr Kgoete" title="Professional healthcare grounded in clinical standards, privacy, and clear communication." intro="Dr Kabelo Kgoete Medical Practice & Optometry provides medical and eye-care services with a patient-first approach, professional ethics, and respectful follow-through.">
       <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
         <motion.div {...fadeUp} className="clinical-card rounded-2xl border border-border p-6">
-          <div className="grid aspect-[4/5] place-items-center rounded-2xl border border-border bg-secondary text-center shadow-soft">
-            <div>
-              <div className="mx-auto grid h-24 w-24 place-items-center rounded-full bg-card text-5xl shadow-soft">👨‍⚕️</div>
-              <p className="mt-5 font-display text-3xl font-black text-clinic-navy">Dr Kabelo Kgoete</p>
-              <p className="mt-2 text-sm font-bold uppercase text-clinic-red">Professional portrait placeholder</p>
+          <div className="relative overflow-hidden rounded-2xl border border-border bg-secondary shadow-soft">
+            <img src={doctorGreenAttireImage} alt="Dr Kabelo Kgoete wearing green medical attire" className="aspect-[4/5] w-full object-cover object-top" loading="lazy" decoding="async" />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-clinic-navy/90 to-transparent p-6 text-primary-foreground">
+              <p className="font-display text-3xl font-black">Dr Kabelo Kgoete</p>
+              <p className="mt-2 text-sm font-bold uppercase opacity-85">Medical practitioner and optometry practice lead</p>
             </div>
           </div>
           <div className="mt-6 rounded-2xl bg-secondary p-5">
@@ -141,6 +157,7 @@ export function AboutPage() {
         <p className="font-display text-3xl font-black leading-tight md:text-5xl">“Healthcare should be accessible, compassionate, and precise.”</p>
         <footer className="mt-5 text-sm font-bold uppercase opacity-80">Dr Kabelo Kgoete</footer>
       </motion.blockquote>
+      <FacilityCarousel />
     </StandardPage>
   );
 }
@@ -191,7 +208,7 @@ export function ContactPage() {
   const message = `Hi Dr Kgoete,\nMy name is ${form.name || "[Name]"}.\nMy phone number is ${form.phone || "[Phone]"}.\n${form.message || "I would like to book an appointment."}`;
 
   return (
-    <StandardPage eyebrow="Contact" title="Book quickly through WhatsApp or call the Glen Cowie practice." intro="Send a clear appointment request, call directly, or use the map to find Medical Centre Ga-Moloi in Caprive Village.">
+    <StandardPage eyebrow="Contact" title="Book quickly through WhatsApp or call the Glen Cowie practice." intro="Send a clear appointment request, call directly, or open the Google Business Profile for directions to Medical Centre Ga-Moloi in Caprive Village.">
       <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr]">
         <motion.div {...fadeUp} className="clinical-card rounded-2xl border border-border p-6">
           <p className="text-sm font-bold uppercase text-clinic-red">Practice details</p>
@@ -200,8 +217,10 @@ export function ContactPage() {
             <p><strong className="text-foreground">Address:</strong> {address}</p>
             <p><strong className="text-foreground">Registration:</strong> Available at reception.</p>
           </div>
-          <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-secondary">
-            <iframe title="Map to Dr Kabelo Kgoete Medical Practice & Optometry" src="https://www.google.com/maps?q=Medical%20Centre%20Stand%20No%20004%20Ga-Moloi%20Caprive%20Village%20Glen%20Cowie%201061&output=embed" className="h-72 w-full" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+          <div className="mt-6 rounded-2xl border border-border bg-secondary p-5 shadow-soft">
+            <p className="font-display text-2xl font-black text-clinic-navy">Get directions on Google</p>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">Open the official Google Business Profile for location details, navigation, and directions to the practice.</p>
+            <a href={googleBusinessProfileUrl} target="_blank" rel="noreferrer" className="premium-button mt-5 inline-flex h-12 items-center justify-center rounded-full bg-accent px-6 text-sm font-bold text-accent-foreground shadow-soft">Open directions</a>
           </div>
         </motion.div>
         <motion.div {...fadeUp} className="rounded-2xl border border-border bg-card p-6 shadow-soft">
