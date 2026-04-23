@@ -432,6 +432,19 @@ function InfoBlock({ title, text }: { title: string; text: string }) {
   );
 }
 
+function MedicalHeartbeatDiagram() {
+  return (
+    <svg viewBox="0 0 520 300" className="h-auto w-full text-clinic-navy" role="img" aria-label="Animated medical heartbeat diagram">
+      <motion.circle cx="260" cy="150" r="108" fill="var(--clinic-ice)" stroke="currentColor" strokeWidth="10" animate={{ scale: [1, 1.025, 1] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }} style={{ transformOrigin: "260px 150px" }} />
+      <motion.path d="M145 150C112 108 126 62 178 62C215 62 240 86 260 118C280 86 305 62 342 62C394 62 408 108 375 150L260 256L145 150Z" fill="none" stroke="var(--clinic-red)" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.4, ease: "easeOut" }} />
+      <path d="M30 152H132L154 122L178 184L210 62L248 222L278 152H490" fill="none" stroke="var(--clinic-red)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" className="pulse-line" />
+      <circle cx="64" cy="152" r="16" fill="var(--clinic-red)" />
+      <text x="38" y="45" fill="currentColor" fontSize="22" fontWeight="700">Medical care</text>
+      <text x="346" y="272" fill="currentColor" fontSize="22" fontWeight="700">Heartbeat</text>
+    </svg>
+  );
+}
+
 function EyeDiagram() {
   return (
     <svg viewBox="0 0 520 300" className="h-auto w-full text-clinic-navy" role="img" aria-label="Simple eye health diagram">
