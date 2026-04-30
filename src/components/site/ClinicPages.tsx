@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 
 import doctorConsultationImage from "@/assets/dr-kgoete-consultation.jpeg";
-import doctorGreenAttireImage from "@/assets/dr-kgoete-green-attire.jpeg";
+import doctorGreenAttireImage from "@/assets/dr-kgoete-portrait.jpg";
 import logo from "@/assets/dr-kgoete-logo-new.png";
 import eyeChartImage from "@/assets/facility-eye-chart.jpeg";
 import receptionImage from "@/assets/facility-reception.jpeg";
