@@ -10,6 +10,13 @@ import eyeChartImage from "@/assets/facility-eye-chart.jpeg";
 import receptionImage from "@/assets/facility-reception.jpeg";
 import ultrasoundImage from "@/assets/facility-ultrasound.jpeg";
 import waitingAreaImage from "@/assets/facility-waiting-area.jpeg";
+import servicesBannerImage from "@/assets/facility-services-banner.jpg";
+import framesWideImage from "@/assets/facility-frames-wide.jpg";
+import framesDisplayImage from "@/assets/facility-frames-display.jpg";
+import optometryReceptionImage from "@/assets/facility-optometry-reception.jpg";
+import autorefractorImage from "@/assets/facility-autorefractor.jpg";
+import eyeTestChairImage from "@/assets/facility-eye-test-chair.jpg";
+import phoropterRoomImage from "@/assets/facility-phoropter-room.jpg";
 
 const practiceName = "Dr Kabelo Kgoete Medical Practice & Optometry";
 const address = "Medical Centre, Stand No 004 Ga-Moloi, Caprive Village, Glen Cowie, 1061";
@@ -73,8 +80,15 @@ const journey = ["Request", "Confirm", "Visit", "Assess", "Follow up"];
 const facilityImages = [
   { src: waitingAreaImage, alt: "Patient waiting area at Dr Kabelo Kgoete Medical Practice and Optometry", title: "Patient waiting area" },
   { src: receptionImage, alt: "Reception area at Medical Centre Ga-Moloi in Glen Cowie", title: "Reception and check-in" },
+  { src: optometryReceptionImage, alt: "Optometry reception with frames wall and screening station", title: "Optometry reception" },
   { src: doctorConsultationImage, alt: "Dr Kabelo Kgoete consulting with clinical equipment", title: "Consultation room" },
   { src: ultrasoundImage, alt: "Clinical ultrasound equipment available at the practice", title: "Medical equipment" },
+  { src: servicesBannerImage, alt: "Dr Kabelo Kgoete Medical Practice services banner displayed at reception", title: "Our services" },
+  { src: phoropterRoomImage, alt: "Refraction room with phoropter and adjustable patient chair", title: "Refraction room" },
+  { src: eyeTestChairImage, alt: "Patient undergoing trial frame eye examination", title: "Eye examination" },
+  { src: autorefractorImage, alt: "Canon auto refractometer used for objective vision measurement", title: "Auto refractometer" },
+  { src: framesWideImage, alt: "Wide selection of prescription eyewear frames on display", title: "Frames selection" },
+  { src: framesDisplayImage, alt: "Designer eyewear and sunglasses display wall", title: "Eyewear & sunglasses" },
   { src: eyeChartImage, alt: "Illuminated eye chart used for optometry screening", title: "Vision screening" },
 ] as const;
 
