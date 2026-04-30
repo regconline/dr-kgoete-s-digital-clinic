@@ -135,7 +135,7 @@ export function AboutPage() {
       <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
         <motion.div {...fadeUp} className="clinical-card rounded-2xl border border-border p-6">
           <div className="relative overflow-hidden rounded-2xl border border-border bg-secondary shadow-soft">
-            <img src={doctorGreenAttireImage} alt="Dr Kabelo Kgoete wearing green medical attire" className="aspect-[4/5] w-full object-cover object-top" loading="lazy" decoding="async" />
+            <img src={doctorGreenAttireImage} alt="Dr Kabelo Kgoete, General Practitioner and Optometrist" className="aspect-[4/5] w-full object-cover object-top" loading="lazy" decoding="async" />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-clinic-navy/90 to-transparent p-6 text-primary-foreground">
               <p className="font-display text-3xl font-black">Dr Kabelo Kgoete</p>
               <p className="mt-2 text-sm font-bold uppercase opacity-85">Medical practitioner and optometry practice lead</p>
